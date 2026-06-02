@@ -1,6 +1,35 @@
 version: '3.8'
 
 services:
+  ms-apigateway:
+    build:
+      context: ./MS-ApiGateway
+      dockerfile: Dockerfile
+    container_name: ms-apigateway
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Jaeger__Host=jaeger-medipass
+      - Jaeger__Port=6831
+    depends_on:
+      - ms-agendahub
+      - jaeger-medipass
+    networks:
+      - medipass-net
+
+  medipass-frontend:
+    build:
+      context: ./medipass-frontend
+      dockerfile: Dockerfile
+    container_name: medipass-frontend
+    ports:
+      - "3001:80"
+    depends_on:
+      - ms-apigateway
+    networks:
+      - medipass-net
+
   ms-agendahub:
     build:
       context: ./MS-AgendaHub

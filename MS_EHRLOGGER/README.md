@@ -1,186 +1,33 @@
-# MS-EHRLogger — Microservicio Asíncrono EHR (.NET 8 / C#)
+# MS-EHRLogger
 
-> **Medipass: Agendamiento Especializado** · Ecosistema de Microservicios  
-> Misma arquitectura, lenguaje y convenciones de nombres que **MS-AgendaHub**
+El **MS-EHRLogger** (Electronic Health Record Logger) es un microservicio fundamental en el ecosistema Medipass, especializado en la persistencia inmutable y asíncrona de los historiales clínicos.
 
----
+## Arquitectura y Contexto
 
-## 📁 Estructura del Proyecto
+Este servicio funciona principalmente como un **Consumidor / Worker Service**. Su arquitectura está orientada a eventos (Event-Driven). 
+No necesita ser llamado explícitamente por el usuario ni por otros servicios de manera síncrona; su trabajo es reaccionar a eventos en la red de mensajería, procesarlos y guardarlos para cumplimiento normativo y registro médico.
 
-```
-MsEhrLogger
-│
-├── Application
-│   ├── Ports
-│   │   ├── In
-│   │   │       IEhrLoggerUseCasePort.cs
-│   │   │
-│   │   └── Out
-│   │           IEhrRecordRepositoryPort.cs
-│   │           IEhrEventPublisherPort.cs
-│   │
-│   └── UseCases
-│           EhrLoggerUseCase.cs
-│
-├── Domain
-│   ├── Builders
-│   │       EhrRecordBuilder.cs
-│   │
-│   ├── Enums
-│   │       EhrRecordStatus.cs
-│   │       EhrEventType.cs
-│   │
-│   ├── Exceptions
-│   │       DomainException.cs
-│   │
-│   ├── Models
-│   │       EhrRecord.cs
-│   │       AppointmentSummary.cs
-│   │
-│   └── Services
-│           EhrRecordService.cs
-│
-├── Infrastructure
-│   ├── Adapters
-│   │   ├── Persistence
-│   │   │       EhrRecordEntity.cs
-│   │   │       EhrRecordRepositoryAdapter.cs
-│   │   │
-│   │   └── Rest
-│   │           AppointmentController.cs
-│   │           AppointmentConsumerAdapter.cs
-│   │           EhrEventPublisherAdapter.cs
-│   │
-│   ├── Config
-│   │       AppDbContext.cs
-│   │       InfrastructureServiceExtensions.cs
-│   │
-│   ├── Dtos
-│   │       AppointmentConfirmedEvent.cs
-│   │       EhrRecordResponse.cs
-│   │
-│   └── Mappers
-│       │   EhrRecordMapper.cs
-│       │
-│       └── Interface
-│               IEhrRecordMapper.cs
-│
-├── Tests
-│   └── Domain
-│           EhrRecordTests.cs
-│
-├── docker/
-│   ├── mongo-init.js
-│   ├── prometheus.yml
-│   └── grafana/provisioning/datasources/datasources.yml
-│
-├── appsettings.json
-├── appsettings.Docker.json
-├── docker-compose.yml
-├── Dockerfile
-└── MsEhrLogger.csproj
-```
+## Tecnologías
 
----
+- **Framework:** ASP.NET Core 8 Web API / Worker
+- **Base de Datos:** MongoDB (NoSQL)
+- **Mensajería:** MassTransit, RabbitMQ
+- **Observabilidad:** OpenTelemetry (con soporte especial para propagación de trazas en RabbitMQ).
 
-## 🔗 Compatibilidad con MS-AgendaHub
+## Flujo de Trabajo
 
-| MS-AgendaHub (C#) | MS-EHRLogger (C#) | Rol |
-|---|---|---|
-| `IAppointmentUseCasePort.cs` | `IEhrLoggerUseCasePort.cs` | Puerto de entrada |
-| `IAppointmentRepositoryPort.cs` | `IEhrRecordRepositoryPort.cs` | Puerto de persistencia |
-| `IEhrEventPublisherPort.cs` | `IEhrEventPublisherPort.cs` | **Nombre idéntico** — simetría intencional |
-| `AppointmentUseCase.cs` | `EhrLoggerUseCase.cs` | Caso de uso |
-| `AppointmentBuilder.cs` | `EhrRecordBuilder.cs` | Builder GoF |
-| `AppointmentService.cs` | `EhrRecordService.cs` | Servicio de dominio |
-| `AppointmentRepositoryAdapter.cs` | `EhrRecordRepositoryAdapter.cs` | Adapter GoF |
-| `AppointmentController.cs` | `AppointmentController.cs` | **Nombre idéntico** — convención REST |
-| `EhrEventPublisherAdapter.cs` | `EhrEventPublisherAdapter.cs` | **Nombre idéntico** — simetría intencional |
-| `AppointmentMapper.cs` | `EhrRecordMapper.cs` | Mapper |
-| `IAppointmentMapper.cs` | `IEhrRecordMapper.cs` | Interfaz mapper |
-| `AppDbContext.cs` | `AppDbContext.cs` | **Nombre idéntico** — configuración DB |
-| `InfrastructureServiceExtensions.cs` | `InfrastructureServiceExtensions.cs` | **Nombre idéntico** — DI |
+1. **Escucha:** El servicio está suscrito a la cola de RabbitMQ esperando el evento de integración `EhrEvent` (publicado por `MS-AgendaHub` cuando se completa una cita).
+2. **Procesa:** Convierte los datos del evento en un documento BSON estructurado (Log Médico).
+3. **Persiste:** Guarda el registro en una colección de MongoDB de manera inmutable.
+4. **Notifica:** Una vez el guardado es exitoso, realiza una petición `POST` interna (vía HTTP) al `MS-ApiGateway` en el endpoint `/internal/notify` para informar que la acción se completó con éxito.
 
-### Contrato del Evento (cola RabbitMQ)
+## Endpoints y Colas
 
-`EhrEventPublisherAdapter.cs` del **MS-AgendaHub** publica hacia `medipass.events` con routing key `appointment.confirmed`.  
-`AppointmentConsumerAdapter.cs` del **MS-EHRLogger** consume esa misma cola deserializando `AppointmentConfirmedEvent.cs`.
+| Tipo | Ruta / Cola | Descripción |
+|------|-------------|-------------|
+| **Cola AMQP** | `ehr-event-queue` | Consumidor de mensajes de RabbitMQ provenientes del AgendaHub. |
+| **HTTP GET** | `/api/EhrLog` | Endpoint de consulta de solo lectura para listar los logs clínicos guardados. |
 
-Los campos del DTO son idénticos en ambos servicios:
+## Base de Datos NoSQL
 
-```csharp
-// Publicado por MS-AgendaHub → Consumido por MS-EHRLogger
-public class AppointmentConfirmedEvent {
-    public string   EventId            { get; set; }
-    public string   AppointmentId      { get; set; }
-    public string   PatientId          { get; set; }
-    public string   DoctorId           { get; set; }
-    public string   Specialty          { get; set; }
-    public DateTime ScheduledAt        { get; set; }
-    public string   ConsultationRoom   { get; set; }
-    public string   InsuranceCode      { get; set; }
-    public string   ProcedureCode      { get; set; }
-    public bool     InsuranceValidated { get; set; }
-    public string   Observations       { get; set; }
-    public string   CorrelationId      { get; set; }
-    public string   SourceService      { get; set; }
-    public DateTime PublishedAt        { get; set; }
-}
-```
-
----
-
-## 🚀 Inicio Rápido
-
-```bash
-# Clonar y levantar todo el stack
-git clone https://github.com/medipass/ms-ehrlogger.git
-cd ms-ehrlogger
-docker compose up -d --build
-```
-
-| Servicio | URL |
-|---------|-----|
-| **Swagger UI** | http://localhost:8083/swagger |
-| **Health Check** | http://localhost:8083/health |
-| **Métricas Prometheus** | http://localhost:8083/metrics |
-| **RabbitMQ Management** | http://localhost:15672 (`medipass` / `medipass_pass`) |
-| **Prometheus** | http://localhost:9090 |
-| **Grafana** | http://localhost:3000 (`admin` / `medipass123`) |
-| **Jaeger UI** | http://localhost:16686 |
-
----
-
-## 🧪 Tests
-
-```bash
-dotnet test
-```
-
----
-
-## 📦 Variables de Entorno
-
-| Variable | Default |
-|----------|---------|
-| `MongoDB__ConnectionString` | `mongodb://...@localhost:27019/ehr_db` |
-| `MongoDB__DatabaseName` | `ehr_db` |
-| `RabbitMQ__Host` | `localhost` |
-| `RabbitMQ__Port` | `5672` |
-| `RabbitMQ__Username` | `medipass` |
-| `RabbitMQ__Password` | `medipass_pass` |
-| `Jaeger__Host` | `localhost` |
-| `Jaeger__Port` | `6831` |
-
----
-
-## 🔗 Entregables del Proyecto Medipass
-
-| Entregable | Enlace |
-|-----------|--------|
-| MS-AgendaHub (Core, C#) | [ms-agendahub](../ms-agendahub/) |
-| MS-Insurance (Síncrono) | [ms-insurance](../ms-insurance/) |
-| **MS-EHRLogger (Asíncrono, C#)** | ← Este repositorio |
-| Docker Compose Ecosistema | [docker-compose.yml](../docker-compose.yml) |
-| Documento RFC | [RFC-Medipass.pdf](../docs/RFC-Medipass.pdf) |
-| Modelo C4 | [C4-Medipass.png](../docs/C4-Medipass.png) |
+Se seleccionó **MongoDB** para este servicio porque los registros de Historial Clínico (EHR) pueden variar fuertemente en esquema dependiendo del procedimiento o especialidad. Además, la persistencia orientada a documentos es altamente eficiente para grandes volúmenes de logs inmutables que rara vez sufren modificaciones (Append-only).

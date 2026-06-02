@@ -1,7 +1,9 @@
 {
   "__inputs": [],
   "__requires": [],
-  "annotations": { "list": [] },
+  "annotations": {
+    "list": []
+  },
   "description": "Dashboard de salud y rendimiento del ecosistema Medipass",
   "editable": true,
   "fiscalYearStartMonth": 0,
@@ -11,7 +13,12 @@
   "panels": [
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
       "id": 100,
       "title": "Estado de los Microservicios",
       "type": "row"
@@ -20,59 +27,232 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [
-            { "options": { "0": { "color": "red", "index": 1, "text": "DOWN" }, "1": { "color": "green", "index": 0, "text": "UP" } }, "type": "value" }
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
           ],
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "green", "value": 1 }] }
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
         }
       },
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
       "id": 1,
-      "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
       "title": "MS-AgendaHub",
       "type": "stat",
-      "targets": [{ "datasource": "Prometheus", "expr": "up{job=\"ms-agendahub\"}", "legendFormat": "", "refId": "A" }]
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "up{job=\"ms-agendahub\"}",
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "up{job=\"ms-apigateway\"}",
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ]
     },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [
-            { "options": { "0": { "color": "red", "index": 1, "text": "DOWN" }, "1": { "color": "green", "index": 0, "text": "UP" } }, "type": "value" }
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
           ],
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "green", "value": 1 }] }
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
         }
       },
-      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
       "id": 2,
-      "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
       "title": "MS-Insurance",
       "type": "stat",
-      "targets": [{ "datasource": "Prometheus", "expr": "up{job=\"ms-insurance\"}", "legendFormat": "", "refId": "A" }]
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "up{job=\"ms-insurance\"}",
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "up{job=\"ms-insurance\"}",
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ]
     },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [
-            { "options": { "0": { "color": "red", "index": 1, "text": "DOWN" }, "1": { "color": "green", "index": 0, "text": "UP" } }, "type": "value" }
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
           ],
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "green", "value": 1 }] }
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
         }
       },
-      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
       "id": 3,
-      "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
       "title": "MS-EHRLogger",
       "type": "stat",
-      "targets": [{ "datasource": "Prometheus", "expr": "up{job=\"ms-ehrlogger\"}", "legendFormat": "", "refId": "A" }]
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "up{job=\"ms-ehrlogger\"}",
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "up{job=\"ms-ehrlogger\"}",
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ]
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
       "id": 101,
       "title": "Tasa de Peticiones HTTP (req/s)",
       "type": "row"
@@ -81,45 +261,128 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
-          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 10
+          },
           "unit": "reqps"
         }
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
       "id": 10,
-      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
       "title": "HTTP Request Rate — todos los servicios",
       "type": "timeseries",
       "targets": [
-        { "datasource": "Prometheus", "expr": "rate(http_requests_received_total{job=\"ms-agendahub\"}[1m])", "legendFormat": "AgendaHub — {{method}} {{route}}", "refId": "A" },
-        { "datasource": "Prometheus", "expr": "rate(http_requests_received_total{job=\"ms-insurance\"}[1m])", "legendFormat": "Insurance — {{method}} {{route}}", "refId": "B" },
-        { "datasource": "Prometheus", "expr": "rate(http_requests_received_total{job=\"ms-ehrlogger\"}[1m])", "legendFormat": "EHRLogger — {{method}} {{route}}", "refId": "C" }
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(http_requests_received_total{job=\"ms-agendahub\"}[1m])",
+          "legendFormat": "AgendaHub — {{method}} {{route}}",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(http_requests_received_total{job=\"ms-insurance\"}[1m])",
+          "legendFormat": "Insurance — {{method}} {{route}}",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(http_requests_received_total{job=\"ms-ehrlogger\"}[1m])",
+          "legendFormat": "EHRLogger — {{method}} {{route}}",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(http_requests_received_total{job=\"ms-apigateway\"}[1m])",
+          "legendFormat": "ApiGateway — {{method}} {{route}}",
+          "refId": "D"
+        }
       ]
     },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
-          "custom": { "lineWidth": 2, "fillOpacity": 10 },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 10
+          },
           "unit": "s"
         }
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
       "id": 11,
-      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
       "title": "Latencia HTTP p99 — todos los servicios",
       "type": "timeseries",
       "targets": [
-        { "datasource": "Prometheus", "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job=\"ms-agendahub\"}[2m]))", "legendFormat": "AgendaHub p99", "refId": "A" },
-        { "datasource": "Prometheus", "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job=\"ms-insurance\"}[2m]))", "legendFormat": "Insurance p99", "refId": "B" },
-        { "datasource": "Prometheus", "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job=\"ms-ehrlogger\"}[2m]))", "legendFormat": "EHRLogger p99", "refId": "C" }
+        {
+          "datasource": "Prometheus",
+          "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job=\"ms-agendahub\"}[2m]))",
+          "legendFormat": "AgendaHub p99",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job=\"ms-insurance\"}[2m]))",
+          "legendFormat": "Insurance p99",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job=\"ms-ehrlogger\"}[2m]))",
+          "legendFormat": "EHRLogger p99",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job=\"ms-apigateway\"}[2m]))",
+          "legendFormat": "ApiGateway p99",
+          "refId": "D"
+        }
       ]
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 14 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
       "id": 102,
       "title": "Errores HTTP (4xx / 5xx)",
       "type": "row"
@@ -128,45 +391,129 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
-          "custom": { "lineWidth": 2, "fillOpacity": 15 },
-          "unit": "reqps"
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 15
+          },
+          "unit": "short"
         }
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 15 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
       "id": 20,
-      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
-      "title": "Tasa de Errores 4xx",
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "title": "Conteo de Errores 4xx",
       "type": "timeseries",
       "targets": [
-        { "datasource": "Prometheus", "expr": "rate(http_requests_received_total{job=\"ms-agendahub\",code=~\"4..\"}[1m])", "legendFormat": "AgendaHub 4xx", "refId": "A" },
-        { "datasource": "Prometheus", "expr": "rate(http_requests_received_total{job=\"ms-insurance\",code=~\"4..\"}[1m])", "legendFormat": "Insurance 4xx", "refId": "B" },
-        { "datasource": "Prometheus", "expr": "rate(http_requests_received_total{job=\"ms-ehrlogger\",code=~\"4..\"}[1m])", "legendFormat": "EHRLogger 4xx", "refId": "C" }
+        {
+          "datasource": "Prometheus",
+          "expr": "increase(http_requests_received_total{job=\"ms-agendahub\",code=~\"4..\"}[5m])",
+          "legendFormat": "AgendaHub 4xx",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "increase(http_requests_received_total{job=\"ms-insurance\",code=~\"4..\"}[5m])",
+          "legendFormat": "Insurance 4xx",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "increase(http_requests_received_total{job=\"ms-ehrlogger\",code=~\"4..\"}[5m])",
+          "legendFormat": "EHRLogger 4xx",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "increase(http_requests_received_total{job=\"ms-apigateway\",code=~\"4..\"}[5m])",
+          "legendFormat": "ApiGateway 4xx",
+          "refId": "D"
+        }
       ]
     },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "fixed", "fixedColor": "red" },
-          "custom": { "lineWidth": 2, "fillOpacity": 15 },
-          "unit": "reqps"
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "red"
+          },
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 15
+          },
+          "unit": "short"
         }
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 15 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 15
+      },
       "id": 21,
-      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
-      "title": "Tasa de Errores 5xx",
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "title": "Conteo de Errores 5xx",
       "type": "timeseries",
       "targets": [
-        { "datasource": "Prometheus", "expr": "rate(http_requests_received_total{job=\"ms-agendahub\",code=~\"5..\"}[1m])", "legendFormat": "AgendaHub 5xx", "refId": "A" },
-        { "datasource": "Prometheus", "expr": "rate(http_requests_received_total{job=\"ms-insurance\",code=~\"5..\"}[1m])", "legendFormat": "Insurance 5xx", "refId": "B" },
-        { "datasource": "Prometheus", "expr": "rate(http_requests_received_total{job=\"ms-ehrlogger\",code=~\"5..\"}[1m])", "legendFormat": "EHRLogger 5xx", "refId": "C" }
+        {
+          "datasource": "Prometheus",
+          "expr": "increase(http_requests_received_total{job=\"ms-agendahub\",code=~\"5..\"}[5m])",
+          "legendFormat": "AgendaHub 5xx",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "increase(http_requests_received_total{job=\"ms-insurance\",code=~\"5..\"}[5m])",
+          "legendFormat": "Insurance 5xx",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "increase(http_requests_received_total{job=\"ms-ehrlogger\",code=~\"5..\"}[5m])",
+          "legendFormat": "EHRLogger 5xx",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "increase(http_requests_received_total{job=\"ms-apigateway\",code=~\"5..\"}[5m])",
+          "legendFormat": "ApiGateway 5xx",
+          "refId": "D"
+        }
       ]
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 23 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
       "id": 103,
       "title": "Recursos del Sistema (.NET Runtime)",
       "type": "row"
@@ -175,45 +522,126 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
-          "custom": { "lineWidth": 2 },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "lineWidth": 2
+          },
           "unit": "bytes"
         }
       },
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 24 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
       "id": 30,
-      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
       "title": "Uso de Memoria (Working Set)",
       "type": "timeseries",
       "targets": [
-        { "datasource": "Prometheus", "expr": "process_working_set_bytes{job=\"ms-agendahub\"}", "legendFormat": "AgendaHub", "refId": "A" },
-        { "datasource": "Prometheus", "expr": "process_working_set_bytes{job=\"ms-insurance\"}", "legendFormat": "Insurance", "refId": "B" },
-        { "datasource": "Prometheus", "expr": "process_working_set_bytes{job=\"ms-ehrlogger\"}", "legendFormat": "EHRLogger", "refId": "C" }
+        {
+          "datasource": "Prometheus",
+          "expr": "process_working_set_bytes{job=\"ms-agendahub\"}",
+          "legendFormat": "AgendaHub",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "process_working_set_bytes{job=\"ms-insurance\"}",
+          "legendFormat": "Insurance",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "process_working_set_bytes{job=\"ms-ehrlogger\"}",
+          "legendFormat": "EHRLogger",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "process_working_set_bytes{job=\"ms-apigateway\"}",
+          "legendFormat": "ApiGateway",
+          "refId": "D"
+        }
       ]
     },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
-          "custom": { "lineWidth": 2 },
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "lineWidth": 2
+          },
           "unit": "short"
         }
       },
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 24 },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
       "id": 31,
-      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
       "title": "GC Collections (Gen0 / Gen1 / Gen2)",
       "type": "timeseries",
       "targets": [
-        { "datasource": "Prometheus", "expr": "rate(dotnet_collection_count_total{job=\"ms-agendahub\",generation=\"0\"}[1m])", "legendFormat": "AgendaHub Gen0", "refId": "A" },
-        { "datasource": "Prometheus", "expr": "rate(dotnet_collection_count_total{job=\"ms-insurance\",generation=\"0\"}[1m])", "legendFormat": "Insurance Gen0", "refId": "B" },
-        { "datasource": "Prometheus", "expr": "rate(dotnet_collection_count_total{job=\"ms-ehrlogger\",generation=\"0\"}[1m])", "legendFormat": "EHRLogger Gen0", "refId": "C" }
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(dotnet_collection_count_total{job=\"ms-agendahub\",generation=\"0\"}[1m])",
+          "legendFormat": "AgendaHub Gen0",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(dotnet_collection_count_total{job=\"ms-insurance\",generation=\"0\"}[1m])",
+          "legendFormat": "Insurance Gen0",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(dotnet_collection_count_total{job=\"ms-ehrlogger\",generation=\"0\"}[1m])",
+          "legendFormat": "EHRLogger Gen0",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "rate(dotnet_collection_count_total{job=\"ms-apigateway\",generation=\"0\"}[1m])",
+          "legendFormat": "ApiGateway Gen0",
+          "refId": "D"
+        }
       ]
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 32 },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
       "id": 104,
       "title": "Negocio — Métricas Medipass",
       "type": "row"
@@ -222,56 +650,155 @@
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "blue", "value": null }] },
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
           "unit": "short"
         }
       },
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 33 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 33
+      },
       "id": 40,
-      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
       "title": "Citas Confirmadas (total)",
       "type": "stat",
-      "targets": [{ "datasource": "Prometheus", "expr": "medipass_appointments_confirmed_total", "legendFormat": "", "refId": "A" }]
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "medipass_appointments_confirmed_total",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ]
     },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "orange", "value": null }] },
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              }
+            ]
+          },
           "unit": "short"
         }
       },
-      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 33 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 33
+      },
       "id": 41,
-      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
       "title": "Seguros Rechazados (total)",
       "type": "stat",
-      "targets": [{ "datasource": "Prometheus", "expr": "medipass_insurance_rejections_total", "legendFormat": "", "refId": "A" }]
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "medipass_insurance_rejections_total",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ]
     },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
-          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] },
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
           "unit": "short"
         }
       },
-      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 33 },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 33
+      },
       "id": 42,
-      "options": { "colorMode": "background", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
       "title": "Registros EHR Guardados",
       "type": "stat",
-      "targets": [{ "datasource": "Prometheus", "expr": "medipass_ehr_records_saved_total", "legendFormat": "", "refId": "A" }]
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "medipass_ehr_records_saved_total",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ]
     }
   ],
   "refresh": "10s",
   "schemaVersion": 39,
-  "tags": ["medipass", "microservicios", "salud"],
-  "templating": { "list": [] },
-  "time": { "from": "now-30m", "to": "now" },
+  "tags": [
+    "medipass",
+    "microservicios",
+    "salud"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
   "timepicker": {},
   "timezone": "browser",
   "title": "Medipass — Observabilidad del Ecosistema",

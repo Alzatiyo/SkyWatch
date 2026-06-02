@@ -4,8 +4,9 @@ using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Infraestructura (DB, RabbitMQ, Observabilidad) ─────────────────────────
+// ⚙️ Infraestructura (DB, RabbitMQ, Observabilidad) ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHttpClient();
 
 // ── Controllers ────────────────────────────────────────────────────────────
 builder.Services.AddControllers()

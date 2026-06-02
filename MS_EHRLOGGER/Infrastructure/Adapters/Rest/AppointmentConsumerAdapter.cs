@@ -23,16 +23,19 @@ public class AppointmentConsumerAdapter : BackgroundService
     private readonly IConnection                         _connection;
     private readonly IModel                              _channel;
     private readonly ILogger<AppointmentConsumerAdapter> _logger;
+    private readonly IHttpClientFactory                  _httpClientFactory;
 
     public AppointmentConsumerAdapter(
         IEhrLoggerUseCasePort                    useCase,
         IConnection                              connection,
-        ILogger<AppointmentConsumerAdapter>      logger)
+        ILogger<AppointmentConsumerAdapter>      logger,
+        IHttpClientFactory                       httpClientFactory)
     {
-        _useCase    = useCase;
-        _connection = connection;
-        _channel    = _connection.CreateModel();
-        _logger     = logger;
+        _useCase           = useCase;
+        _connection        = connection;
+        _channel           = _connection.CreateModel();
+        _logger            = logger;
+        _httpClientFactory = httpClientFactory;
 
         DeclareTopology();
     }
@@ -87,6 +90,19 @@ public class AppointmentConsumerAdapter : BackgroundService
 
             _logger.LogInformation(
                 "[EHR-Consumer] Registro EHR guardado en {Ms}ms", sw.ElapsedMilliseconds);
+
+            // Notificar al Frontend vía API Gateway (SignalR Webhook)
+            try 
+            {
+                var client = _httpClientFactory.CreateClient();
+                var notification = new { Message = $"Historial Clínico del paciente '{ehrEvent.PatientId}' actualizado (Cita: {ehrEvent.AppointmentId})" };
+                var content = new StringContent(JsonConvert.SerializeObject(notification), Encoding.UTF8, "application/json");
+                await client.PostAsync("http://ms-apigateway:5000/internal/notify", content);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogWarning("[EHR-Consumer] No se pudo notificar al Frontend: {Msg}", ex.Message);
+            }
         }
         catch (InvalidEhrRecordException ex)
         {

@@ -33,7 +33,10 @@ builder.Services.AddOpenTelemetry()
         tracingBuilder
             .SetResourceBuilder(ResourceBuilder.CreateDefault()
                 .AddService("ms-agendahub"))
-            .AddAspNetCoreInstrumentation()
+            .AddAspNetCoreInstrumentation(options => 
+            {
+                options.Filter = context => !context.Request.Path.StartsWithSegments("/metrics") && !context.Request.Path.StartsWithSegments("/health");
+            })
             .AddHttpClientInstrumentation()
             .AddJaegerExporter(opts =>
             {
