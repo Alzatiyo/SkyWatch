@@ -1,10 +1,12 @@
 # Medipass Ecosystem
 
-Medipass es un ecosistema de microservicios diseñado para la gestión de citas médicas, validación de seguros de salud (Insurance) y registro de historias clínicas electrónicas (EHR). El sistema está construido con un enfoque en alta disponibilidad, observabilidad integral y comunicación asíncrona.
+Medipass es un ecosistema de microservicios de alta complejidad diseñado para la gestión crítica de citas médicas de alta especialidad (Oncología, Cardiología), validación de seguros de salud (Insurance) y registro de historias clínicas electrónicas (EHR). El sistema está construido con un enfoque en alta disponibilidad, observabilidad integral y comunicación asíncrona para mitigar el error humano y garantizar la consistencia de los datos en tiempo real.
 
 ## Arquitectura General
 
 El sistema se compone de varios microservicios y un Gateway que orquesta las peticiones, implementando patrones como **Hexagonal Architecture (Ports & Adapters)**, **Event-Driven Architecture (RabbitMQ)**, y **Reverse Proxy (YARP)**.
+
+[**Diagrama de Arquitectura**](https://drive.google.com/file/d/1bnwIki5hsP8sAqMCdCeY7UQVfKw4t9Gz/view?usp=sharing)
 
 ### Flujo Principal de Agendamiento
 1. El **Frontend (React)** envía una petición de agendamiento al **MS-ApiGateway**.
